@@ -284,6 +284,65 @@
             <a href="https://enull2700.vercel.app/" class="account-link">Go to Account Page</a>
         </div>
     </div>
+<script>
+        document.getElementById('postAdButton').onclick = function() {
+            document.getElementById('adModal').style.display = "block";
+        }
+        
+        document.getElementsByClassName('close')[0].onclick = function() {
+            document.getElementById('adModal').style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('adModal')) {
+                document.getElementById('adModal').style.display = "none";
+            }
+        }
+
+        function postAd() {
+            var adTitle = document.getElementById('adTitle').value;
+            var adDescription = document.getElementById('adDescription').value;
+            var adPrice = document.getElementById('adPrice').value;
+            var adWebsite = document.getElementById('adWebsite').value;
+            var adImage = document.getElementById('adImage').files[0];
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var adDiv = document.createElement('div');
+                adDiv.className = 'ad-content';
+                
+                var adImageDiv = document.createElement('div');
+                adImageDiv.className = 'ad-image';
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = adTitle;
+                adImageDiv.appendChild(img);
+                
+                var adDescriptionDiv = document.createElement('div');
+                adDescriptionDiv.className = 'ad-description';
+                adDescriptionDiv.innerHTML = 
+                    <h2>${adTitle}</h2>
+                    <p>${adDescription}</p>
+                    <p>Price: ${adPrice}</p>
+                    <p>Website: <a href="${adWebsite}" target="_blank">${adWebsite}</a></p>
+                ;
+                
+                adDiv.appendChild(adImageDiv);
+                adDiv.appendChild(adDescriptionDiv);
+                
+                document.getElementById('ads').appendChild(adDiv);
+                
+                document.getElementById('adModal').style.display = "none";
+                document.getElementById('adForm').reset();
+            };
+            
+            if (adImage) {
+                reader.readAsDataURL(adImage);
+            }
+        }
+    </script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
